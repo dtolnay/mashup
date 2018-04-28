@@ -90,3 +90,8 @@ fn test_integer() {
 
     assert_eq!(m!["id"], CONST0);
 }
+
+#[test]
+fn test_empty() {
+    mashup! {}
+}

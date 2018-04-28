@@ -146,7 +146,7 @@ macro_rules! mashup_parser {
 /// [crate-level documentation]: index.html
 #[macro_export]
 macro_rules! mashup {
-    ($m:ident[$($n:tt)+] = $i:ident $($rest:tt)+) => {
-        mashup_parser!(@pieces ($m[$($n)+] = $i) $($rest)*);
-    };
+    ($($mashup:tt)*) => {
+        mashup_parser!(@begin () $($mashup)*);
+    }
 }
