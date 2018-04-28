@@ -134,7 +134,7 @@ macro_rules! mashup_parser {
     (@pieces ($($parse:tt)*) $piece:tt $($rest:tt)*) => {
         mashup_parser!(@pieces ($($parse)* $piece) $($rest)*);
     };
-    (@begin ($($parse:tt)*) $m:ident[$($n:tt)+] = $i:ident $($rest:tt)*) => {
+    (@begin ($($parse:tt)*) $m:ident[$($n:tt)+] = $i:tt $($rest:tt)*) => {
         mashup_parser!(@pieces ($($parse)* $m[$($n)+] = $i) $($rest)*);
     };
     (@begin ($($parse:tt)*)) => {

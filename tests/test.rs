@@ -107,3 +107,17 @@ fn test_underscore() {
         assert_eq!(X, 0);
     }
 }
+
+#[test]
+fn test_lifetime() {
+    mashup! {
+        m['life time] = 'd e;
+    }
+
+    m! {
+        #[allow(dead_code)]
+        struct S<'life time> {
+            q: &'life time str,
+        }
+    }
+}

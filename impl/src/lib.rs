@@ -79,42 +79,42 @@ fn make_macro(name: String, patterns: Patterns) -> String {
 
     rules += &"
         // Open parenthesis.
-        (@($($v:ident)*) ($($stack:tt)*) ($($first:tt)*) $($rest:tt)*) => {
+        (@($($v:tt)*) ($($stack:tt)*) ($($first:tt)*) $($rest:tt)*) => {
             __mashup_replace! {
                 @($($v)*) (() $($stack)*) $($first)* __mashup_close_paren $($rest)*
             }
         };
 
         // Open square bracket.
-        (@($($v:ident)*) ($($stack:tt)*) [$($first:tt)*] $($rest:tt)*) => {
+        (@($($v:tt)*) ($($stack:tt)*) [$($first:tt)*] $($rest:tt)*) => {
             __mashup_replace! {
                 @($($v)*) (() $($stack)*) $($first)* __mashup_close_bracket $($rest)*
             }
         };
 
         // Open curly brace.
-        (@($($v:ident)*) ($($stack:tt)*) {$($first:tt)*} $($rest:tt)*) => {
+        (@($($v:tt)*) ($($stack:tt)*) {$($first:tt)*} $($rest:tt)*) => {
             __mashup_replace! {
                 @($($v)*) (() $($stack)*) $($first)* __mashup_close_brace $($rest)*
             }
         };
 
         // Close parenthesis.
-        (@($($v:ident)*) (($($close:tt)*) ($($top:tt)*) $($stack:tt)*) __mashup_close_paren $($rest:tt)*) => {
+        (@($($v:tt)*) (($($close:tt)*) ($($top:tt)*) $($stack:tt)*) __mashup_close_paren $($rest:tt)*) => {
             __mashup_replace! {
                 @($($v)*) (($($top)* ($($close)*)) $($stack)*) $($rest)*
             }
         };
 
         // Close square bracket.
-        (@($($v:ident)*) (($($close:tt)*) ($($top:tt)*) $($stack:tt)*) __mashup_close_bracket $($rest:tt)*) => {
+        (@($($v:tt)*) (($($close:tt)*) ($($top:tt)*) $($stack:tt)*) __mashup_close_bracket $($rest:tt)*) => {
             __mashup_replace! {
                 @($($v)*) (($($top)* [$($close)*]) $($stack)*) $($rest)*
             }
         };
 
         // Close curly brace.
-        (@($($v:ident)*) (($($close:tt)*) ($($top:tt)*) $($stack:tt)*) __mashup_close_brace $($rest:tt)*) => {
+        (@($($v:tt)*) (($($close:tt)*) ($($top:tt)*) $($stack:tt)*) __mashup_close_brace $($rest:tt)*) => {
             __mashup_replace! {
                 @($($v)*) (($($top)* {$($close)*}) $($stack)*) $($rest)*
             }
@@ -130,7 +130,7 @@ fn make_macro(name: String, patterns: Patterns) -> String {
         let mut quadratic = String::new();
         for (j, q) in patterns.iter().enumerate() {
             if i == j {
-                quadratic += " $v:ident";
+                quadratic += " $v:tt";
             } else {
                 quadratic += " ";
                 quadratic += &q.mashup();
@@ -148,19 +148,19 @@ fn make_macro(name: String, patterns: Patterns) -> String {
             .replace("__mashup_replace", &name)
             .replace("__mashup_pattern", &p.tag.to_string())
             .replace("__mashup_all", &quadratic)
-            .replace("__mashup_continue", &quadratic.replace("$v:ident", "$v"));
+            .replace("__mashup_continue", &quadratic.replace("$v:tt", "$v"));
     }
 
     rules += &"
         // Munch a token that is not one of the targets.
-        (@($($v:ident)*) (($($top:tt)*) $($stack:tt)*) $first:tt $($rest:tt)*) => {
+        (@($($v:tt)*) (($($top:tt)*) $($stack:tt)*) $first:tt $($rest:tt)*) => {
             __mashup_replace! {
                 @($($v)*) (($($top)* $first) $($stack)*) $($rest)*
             }
         };
 
         // Done.
-        (@($($v:ident)*) (($($top:tt)+))) => {
+        (@($($v:tt)*) (($($top:tt)+))) => {
             $($top)+
         };
 
