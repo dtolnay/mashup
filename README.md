@@ -114,6 +114,9 @@ fn main() {
   more than one substitution macro by using as many different substitution macro
   names within one invocation as you want.
 
+- As a consequence of hygiene, a concatenated identifier may not be used to
+  refer to a captured local variable.
+
 <br>
 
 #### License

@@ -107,6 +107,9 @@
 //!   provide a way around this, you may use a single mashup invocation to define
 //!   more than one substitution macro by using as many different substitution macro
 //!   names within one invocation as you want.
+//!
+//! - As a consequence of hygiene, a concatenated identifier may not be used to
+//!   refer to a captured local variable.
 
 #[macro_use]
 extern crate proc_macro_hack;
