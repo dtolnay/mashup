@@ -56,8 +56,11 @@ fn parse(tts: TokenStream) -> Input {
                     pieces.push(tt);
                 }
                 TokenTree::Op(tt) => {
-                    assert_eq!(tt.op(), ';');
-                    break;
+                    match tt.op() {
+                        '_' => pieces.push(TokenTree::Op(tt)),
+                        ';' => break,
+                        other => panic!("unexpected op {:?}", other),
+                    }
                 }
                 _ => panic!("unexpected mashup input"),
             }

@@ -95,3 +95,15 @@ fn test_integer() {
 fn test_empty() {
     mashup! {}
 }
+
+#[test]
+fn test_underscore() {
+    mashup! {
+        m[X] = A _ B;
+    }
+
+    m! {
+        const A_B: usize = 0;
+        assert_eq!(X, 0);
+    }
+}
