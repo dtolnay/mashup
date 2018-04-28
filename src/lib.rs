@@ -78,8 +78,8 @@
 //! #[macro_use]
 //! extern crate mashup;
 //!
-//! const ROCKET_A: &str = "/a";
-//! const ROCKET_B: &str = "/b";
+//! const ROCKET_A: char = 'a';
+//! const ROCKET_B: char = 'b';
 //!
 //! macro_rules! routes {
 //!     ($($route:ident),*) => {{
@@ -97,7 +97,7 @@
 //!
 //! fn main() {
 //!     let routes = routes!(A, B);
-//!     assert_eq!(routes, vec!["/a", "/b"]);
+//!     assert_eq!(routes, vec!['a', 'b']);
 //! }
 //! ```
 //!

@@ -36,8 +36,8 @@ fn test_two_macros() {
         n[x] = D E F;
     }
 
-    const ABC: &str = "abc";
-    const DEF: &str = "def";
+    const ABC: &'static str = "abc";
+    const DEF: &'static str = "def";
 
     assert_eq!(m![x], "abc");
     assert_eq!(n![x], "def");
@@ -50,7 +50,7 @@ fn test_duplicate() {
         m[K] = D E F;
     }
 
-    const ABC: &str = "abc";
+    const ABC: &'static str = "abc";
 
     m! {
         assert_eq!(K, "abc");
@@ -59,8 +59,8 @@ fn test_duplicate() {
 
 #[test]
 fn test_repeat() {
-    const ROCKET_A: &str = "/a";
-    const ROCKET_B: &str = "/b";
+    const ROCKET_A: &'static str = "/a";
+    const ROCKET_B: &'static str = "/b";
 
     macro_rules! routes {
         ($($route:ident),*) => {{
@@ -82,7 +82,7 @@ fn test_repeat() {
 
 #[test]
 fn test_integer() {
-    const CONST0: &str = "const0";
+    const CONST0: &'static str = "const0";
 
     mashup! {
         m["id"] = CONST 0;
