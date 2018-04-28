@@ -1,0 +1,11 @@
+[package]
+name = "mashup-impl"
+version = "0.1.0"
+authors = ["David Tolnay <dtolnay@gmail.com>"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro-hack = "0.4"
+proc-macro2 = "0.3"
