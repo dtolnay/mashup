@@ -11,8 +11,7 @@
 //! mashup = "0.1"
 //! ```
 //!
-//! Mashup works with any Rust compiler version >= 1.15.0, although versions older
-//! than 1.20.0 will need to use an ever so slightly less convenient syntax.
+//! Mashup works with any Rust compiler version >= 1.15.0.
 //!
 //! # So tell me about concatenating idents
 //!
@@ -108,12 +107,6 @@
 //!   provide a way around this, you may use a single mashup invocation to define
 //!   more than one substitution macro by using as many different substitution macro
 //!   names within one invocation as you want.
-//!
-//! - If any ident pieces are integer literals, the entire set of ident pieces must
-//!   be parenthesized: `m[K] = (my_ $route 0);`.
-//!
-//! - If targeting a Rust compiler older than 1.20.0, ident pieces must always be
-//!   parenthesized.
 
 #[macro_use]
 extern crate proc_macro_hack;
@@ -129,6 +122,23 @@ proc_macro_item_decl! {
     mashup_macro! => mashup_macro_impl
 }
 
+#[macro_export]
+#[doc(hidden)]
+macro_rules! mashup_parser {
+    (@pieces ($($parse:tt)*) ; $($rest:tt)*) => {
+        mashup_parser!(@begin ($($parse)* ;) $($rest)*);
+    };
+    (@pieces ($($parse:tt)*) $piece:tt $($rest:tt)*) => {
+        mashup_parser!(@pieces ($($parse)* $piece) $($rest)*);
+    };
+    (@begin ($($parse:tt)*) $m:ident[$($n:tt)+] = $i:ident $($rest:tt)*) => {
+        mashup_parser!(@pieces ($($parse)* $m[$($n)+] = $i) $($rest)*);
+    };
+    (@begin ($($parse:tt)*)) => {
+        mashup_macro!($($parse)*);
+    };
+}
+
 /// A working stable concat_idents.
 ///
 /// Refer to the **[crate-level documentation]**.
@@ -136,14 +146,7 @@ proc_macro_item_decl! {
 /// [crate-level documentation]: index.html
 #[macro_export]
 macro_rules! mashup {
-    ($($m:ident[$($n:tt)+] = $($i:ident)+;)*) => {
-        mashup_macro! {
-            $($m[$($n)+] = $($i)*;)*
-        }
-    };
-    ($($m:ident[$($n:tt)+] = ($($i:tt)+);)*) => {
-        mashup_macro! {
-            $($m[$($n)+] = $($i)*;)*
-        }
+    ($m:ident[$($n:tt)+] = $i:ident $($rest:tt)+) => {
+        mashup_parser!(@pieces ($m[$($n)+] = $i) $($rest)*);
     };
 }

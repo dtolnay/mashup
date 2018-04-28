@@ -81,11 +81,11 @@ fn test_repeat() {
 }
 
 #[test]
-fn test_paren() {
+fn test_integer() {
     const CONST0: &str = "const0";
 
     mashup! {
-        m["id"] = (CONST 0);
+        m["id"] = CONST 0;
     }
 
     assert_eq!(m!["id"], CONST0);

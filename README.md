@@ -17,8 +17,7 @@ This crate provides a more flexible spin on concatenating idents.
 mashup = "0.1"
 ```
 
-Mashup works with any Rust compiler version >= 1.15.0, although versions older
-than 1.20.0 will need to use an ever so slightly less convenient syntax.
+Mashup works with any Rust compiler version >= 1.15.0.
 
 ## So tell me about concatenating idents
 
@@ -114,12 +113,6 @@ fn main() {
   provide a way around this, you may use a single mashup invocation to define
   more than one substitution macro by using as many different substitution macro
   names within one invocation as you want.
-
-- If any ident pieces are integer literals, the entire set of ident pieces must
-  be parenthesized: `m[K] = (my_ $route 0);`.
-
-- If targeting a Rust compiler older than 1.20.0, ident pieces must always be
-  parenthesized.
 
 <br>
 
