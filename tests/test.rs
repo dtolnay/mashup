@@ -123,3 +123,25 @@ fn test_lifetime() {
         }
     }
 }
+
+#[test]
+fn test_type_macro() {
+    mashup! {
+        m["T"] = A a;
+    }
+
+    struct Aa;
+    type Foo = m!["T"];
+    let _: Foo = Aa;
+}
+
+#[test]
+fn test_pattern_macro() {
+    mashup! {
+        m["T"] = A a;
+    }
+
+    struct Aa(usize);
+    let m!["T"(i)] = Aa(1);
+    assert_eq!(i, 1);
+}
