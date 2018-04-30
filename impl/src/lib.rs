@@ -128,27 +128,23 @@ fn make_macro(name: String, patterns: Patterns) -> String {
         all += &p.mashup();
 
         let mut quadratic = String::new();
-        for (j, q) in patterns.iter().enumerate() {
-            if i == j {
-                quadratic += " $v:tt";
-            } else {
-                quadratic += " ";
-                quadratic += &q.mashup();
-            }
+        for j in 0..patterns.len() {
+            quadratic += &format!(" $v{}:tt", j);
         }
 
         rules += &"
             // Replace target tokens with concatenated ident.
             (@(__mashup_all) (($($top:tt)*) $($stack:tt)*) __mashup_pattern $($rest:tt)*) => {
                 __mashup_replace! {
-                    @(__mashup_continue) (($($top)* $v) $($stack)*) $($rest)*
+                    @(__mashup_continue) (($($top)* __mashup_current) $($stack)*) $($rest)*
                 }
             };
             "
             .replace("__mashup_replace", &name)
             .replace("__mashup_pattern", &p.tag.to_string())
             .replace("__mashup_all", &quadratic)
-            .replace("__mashup_continue", &quadratic.replace("$v:tt", "$v"));
+            .replace("__mashup_current", &format!("$v{}", i))
+            .replace("__mashup_continue", &quadratic.replace(":tt", ""));
     }
 
     rules += &"

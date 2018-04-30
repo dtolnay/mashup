@@ -20,12 +20,14 @@ fn test_basic() {
 #[test]
 fn test_shared_hygiene() {
     mashup! {
-        m["k"] = a b c;
+        m["a"] = a a;
+        m["b"] = b b;
     }
 
     m! {
-        let "k" = 1;
-        assert_eq!("k", 1);
+        let "a" = 1;
+        let "b" = 2;
+        assert_eq!("a" + 1, "b");
     }
 }
 
