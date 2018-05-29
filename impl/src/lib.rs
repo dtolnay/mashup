@@ -77,25 +77,27 @@ fn parse(tts: TokenStream) -> Input {
                         tt @ TokenTree::Ident(_) | tt @ TokenTree::Literal(_) => {
                             pieces.push(tt);
                         }
-                        TokenTree::Punct(tt) => {
-                            match tt.as_char() {
-                                '_' | '\'' => pieces.push(TokenTree::Punct(tt)),
-                                ';' => break,
-                                other => panic!("unexpected op {:?}", other),
-                            }
-                        }
+                        TokenTree::Punct(tt) => match tt.as_char() {
+                            '_' | '\'' => pieces.push(TokenTree::Punct(tt)),
+                            ';' => break,
+                            other => panic!("unexpected op {:?}", other),
+                        },
                         _ => panic!("unexpected mashup input"),
                     }
                 }
 
-                let substitution_macro = map.entry(name.to_string())
-                    .or_insert_with(|| SubstitutionMacro {
+                let substitution_macro = map.entry(name.to_string()).or_insert_with(|| {
+                    SubstitutionMacro {
                         attrs: Vec::new(),
                         patterns: Vec::new(),
-                    });
+                    }
+                });
 
                 substitution_macro.attrs.append(&mut attrs);
-                substitution_macro.patterns.push(Concat { tag: tag, pieces: pieces });
+                substitution_macro.patterns.push(Concat {
+                    tag: tag,
+                    pieces: pieces,
+                });
             }
             _ => panic!("unexpected mashup input"),
         }

@@ -95,7 +95,7 @@ fn test_integer() {
 
 #[test]
 fn test_empty() {
-    mashup! {}
+    mashup!{}
 }
 
 #[test]
