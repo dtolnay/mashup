@@ -130,7 +130,7 @@
 //! - As a consequence of hygiene, a concatenated identifier may not be used to
 //!   refer to a captured local variable.
 
-#![doc(html_root_url = "https://docs.rs/mashup/0.1.3")]
+#![doc(html_root_url = "https://docs.rs/mashup/0.1.4")]
 
 #[macro_use]
 extern crate proc_macro_hack;
