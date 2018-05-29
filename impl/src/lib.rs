@@ -54,12 +54,12 @@ fn parse(tts: TokenStream) -> Input {
         let mut pieces = Vec::new();
         while let Some(tt) = tts.next() {
             match tt {
-                tt @ TokenTree::Term(_) | tt @ TokenTree::Literal(_) => {
+                tt @ TokenTree::Ident(_) | tt @ TokenTree::Literal(_) => {
                     pieces.push(tt);
                 }
-                TokenTree::Op(tt) => {
-                    match tt.op() {
-                        '_' => pieces.push(TokenTree::Op(tt)),
+                TokenTree::Punct(tt) => {
+                    match tt.as_char() {
+                        '_' | '\'' => pieces.push(TokenTree::Punct(tt)),
                         ';' => break,
                         other => panic!("unexpected op {:?}", other),
                     }
