@@ -107,6 +107,9 @@
 //! inside of the mashup invocation.
 //!
 //! ```rust
+//! # #[macro_use]
+//! # extern crate mashup;
+//! #
 //! mashup! {
 //!     /// Needs better documentation.
 //!     #[macro_export]
@@ -118,6 +121,8 @@
 //!     m2["y"] = Y y;
 //!     m2["z"] = Z z;
 //! }
+//! #
+//! # fn main() {}
 //! ```
 //!
 //! # Limitations
