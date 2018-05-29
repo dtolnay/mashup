@@ -108,6 +108,25 @@ fn main() {
 }
 ```
 
+## Attributes
+
+Attributes for the substitution macro, including doc comments, may be provided
+inside of the mashup invocation.
+
+```rust
+mashup! {
+    /// Needs better documentation.
+    #[macro_export]
+    m1["w"] = W w;
+    m1["x"] = X x;
+
+    #[macro_export]
+    #[doc(hidden)]
+    m2["y"] = Y y;
+    m2["z"] = Z z;
+}
+```
+
 ## Limitations
 
 - The `mashup!` macro may be invoked *at most once* within a lexical scope. To
