@@ -22,8 +22,12 @@ proc_macro_item_impl! {
     }
 }
 
-type Input = Map<String, Patterns>;
-type Patterns = Vec<Concat>;
+type Input = Map<String, SubstitutionMacro>;
+
+struct SubstitutionMacro {
+    attrs: Vec<TokenStream>,
+    patterns: Vec<Concat>,
+}
 
 struct Concat {
     tag: TokenStream,
@@ -39,45 +43,74 @@ impl Concat {
 fn parse(tts: TokenStream) -> Input {
     let mut tts = tts.into_iter();
     let mut map = Map::new();
+    let mut attrs = Vec::new();
 
-    while let Some(name) = tts.next() {
-        let tag = match tts.next() {
-            Some(TokenTree::Group(group)) => {
-                assert_eq!(group.delimiter(), Delimiter::Bracket);
-                group.stream()
-            }
-            _ => panic!("unexpected mashup input"),
-        };
-
-        assert_eq!(tts.next().unwrap().to_string(), "=");
-
-        let mut pieces = Vec::new();
-        while let Some(tt) = tts.next() {
-            match tt {
-                tt @ TokenTree::Ident(_) | tt @ TokenTree::Literal(_) => {
-                    pieces.push(tt);
-                }
-                TokenTree::Punct(tt) => {
-                    match tt.as_char() {
-                        '_' | '\'' => pieces.push(TokenTree::Punct(tt)),
-                        ';' => break,
-                        other => panic!("unexpected op {:?}", other),
+    while let Some(next) = tts.next() {
+        match next {
+            TokenTree::Punct(punct) => {
+                if punct.as_char() == '#' {
+                    if let Some(TokenTree::Group(group)) = tts.next() {
+                        if group.delimiter() == Delimiter::Bracket {
+                            attrs.push(group.stream());
+                            continue;
+                        }
                     }
                 }
-                _ => panic!("unexpected mashup input"),
+                panic!("unexpected mashup input");
             }
-        }
+            TokenTree::Ident(ident) => {
+                let name = ident.to_string();
 
-        map.entry(name.to_string())
-            .or_insert_with(Vec::new)
-            .push(Concat { tag: tag, pieces: pieces });
+                let tag = match tts.next() {
+                    Some(TokenTree::Group(group)) => {
+                        assert_eq!(group.delimiter(), Delimiter::Bracket);
+                        group.stream()
+                    }
+                    _ => panic!("unexpected mashup input"),
+                };
+
+                assert_eq!(tts.next().unwrap().to_string(), "=");
+
+                let mut pieces = Vec::new();
+                while let Some(tt) = tts.next() {
+                    match tt {
+                        tt @ TokenTree::Ident(_) | tt @ TokenTree::Literal(_) => {
+                            pieces.push(tt);
+                        }
+                        TokenTree::Punct(tt) => {
+                            match tt.as_char() {
+                                '_' | '\'' => pieces.push(TokenTree::Punct(tt)),
+                                ';' => break,
+                                other => panic!("unexpected op {:?}", other),
+                            }
+                        }
+                        _ => panic!("unexpected mashup input"),
+                    }
+                }
+
+                let substitution_macro = map.entry(name.to_string())
+                    .or_insert_with(|| SubstitutionMacro {
+                        attrs: Vec::new(),
+                        patterns: Vec::new(),
+                    });
+
+                substitution_macro.attrs.append(&mut attrs);
+                substitution_macro.patterns.push(Concat { tag: tag, pieces: pieces });
+            }
+            _ => panic!("unexpected mashup input"),
+        }
     }
 
     map
 }
 
-fn make_macro(name: String, patterns: Patterns) -> String {
+fn make_macro(name: String, substitution_macro: SubstitutionMacro) -> String {
+    let mut attrs = String::new();
     let mut rules = String::new();
+
+    for attr in substitution_macro.attrs {
+        attrs += &format!("#[{}]", attr);
+    }
 
     rules += &"
         // Open parenthesis.
@@ -125,12 +158,12 @@ fn make_macro(name: String, patterns: Patterns) -> String {
         .replace("__mashup_replace", &name);
 
     let mut all = String::new();
-    for (i, p) in patterns.iter().enumerate() {
+    for (i, p) in substitution_macro.patterns.iter().enumerate() {
         all += " ";
         all += &p.mashup();
 
         let mut quadratic = String::new();
-        for j in 0..patterns.len() {
+        for j in 0..substitution_macro.patterns.len() {
             quadratic += &format!(" $v{}:tt", j);
         }
 
@@ -172,5 +205,5 @@ fn make_macro(name: String, patterns: Patterns) -> String {
         .replace("__mashup_replace", &name)
         .replace("__mashup_all", &all);
 
-    format!("macro_rules! {} {{ {} }}", name, rules)
+    format!("{} macro_rules! {} {{ {} }}", attrs, name, rules)
 }

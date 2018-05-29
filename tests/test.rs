@@ -145,3 +145,16 @@ fn test_pattern_macro() {
     let m!["T"(i)] = Aa(1);
     assert_eq!(i, 1);
 }
+
+#[test]
+fn test_attributes() {
+    mashup! {
+        /// Needs better documentation.
+        #[macro_export]
+        #[doc(hidden)]
+        m["T"] = A a;
+    }
+
+    struct Aa;
+    let _: m!("T");
+}
