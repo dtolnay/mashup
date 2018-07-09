@@ -130,10 +130,13 @@
 //! - The `mashup!` macro may be invoked *at most once* within a lexical scope. To
 //!   provide a way around this, you may use a single mashup invocation to define
 //!   more than one substitution macro by using as many different substitution macro
-//!   names within one invocation as you want.
+//!   names within one invocation as you want ([#5]).
 //!
 //! - As a consequence of hygiene, a concatenated identifier may not be used to
-//!   refer to a captured local variable.
+//!   refer to a captured local variable ([#6]).
+//!
+//! [#5]: https://github.com/dtolnay/mashup/issues/5
+//! [#6]: https://github.com/dtolnay/mashup/issues/6
 
 #![doc(html_root_url = "https://docs.rs/mashup/0.1.4")]
 
