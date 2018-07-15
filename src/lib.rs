@@ -138,7 +138,7 @@
 //! [#5]: https://github.com/dtolnay/mashup/issues/5
 //! [#6]: https://github.com/dtolnay/mashup/issues/6
 
-#![doc(html_root_url = "https://docs.rs/mashup/0.1.4")]
+#![doc(html_root_url = "https://docs.rs/mashup/0.1.5")]
 
 #[macro_use]
 extern crate proc_macro_hack;
