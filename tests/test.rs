@@ -150,7 +150,6 @@ fn test_pattern_macro() {
 fn test_attributes() {
     mashup! {
         /// Needs better documentation.
-        #[macro_export]
         #[doc(hidden)]
         m["T"] = A a;
     }
