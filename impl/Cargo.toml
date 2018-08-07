@@ -13,3 +13,6 @@ proc-macro = true
 [dependencies]
 proc-macro-hack = "0.4"
 proc-macro2 = "0.4"
+
+[badges]
+travis-ci = { repository = "dtolnay/mashup" }
