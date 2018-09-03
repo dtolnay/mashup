@@ -147,18 +147,6 @@ fn test_pattern_macro() {
 }
 
 #[test]
-fn test_attributes() {
-    mashup! {
-        /// Needs better documentation.
-        #[doc(hidden)]
-        m["T"] = A a;
-    }
-
-    struct Aa;
-    let _: m!("T");
-}
-
-#[test]
 fn test_keyword() {
     mashup! {
         m["x"] = F move;
@@ -171,15 +159,29 @@ fn test_keyword() {
     let _ = Fmove;
 }
 
-#[test]
-fn test_raw_identifier() {
-    mashup! {
-        m["x"] = F r#move;
-    }
+macro_rules! conditionally_ignore {
+    {
+        #[cfg(not($cfg:ident))]
+        mod $name:ident;
+    } => {
+        #[cfg(not($cfg))]
+        include!(concat!("conditional/", stringify!($name), ".rs"));
 
-    m! {
-        struct "x";
-    }
+        #[cfg($cfg)]
+        #[test]
+        #[ignore]
+        fn $name() {
+            panic!("not tested");
+        }
+    };
+}
 
-    let _ = Fmove;
+conditionally_ignore! {
+    #[cfg(not(no_attributes))]
+    mod test_attributes;
+}
+
+conditionally_ignore! {
+    #[cfg(not(no_raw_identifiers))]
+    mod test_raw_identifiers;
 }
