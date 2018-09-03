@@ -4,7 +4,7 @@
 extern crate proc_macro_hack;
 
 extern crate proc_macro2;
-use proc_macro2::{Delimiter, TokenStream, TokenTree};
+use proc_macro2::{Delimiter, Ident, TokenStream, TokenTree};
 
 use std::collections::BTreeMap as Map;
 use std::str::FromStr;
@@ -74,7 +74,14 @@ fn parse(tts: TokenStream) -> Input {
                 let mut pieces = Vec::new();
                 while let Some(tt) = tts.next() {
                     match tt {
-                        tt @ TokenTree::Ident(_) | tt @ TokenTree::Literal(_) => {
+                        TokenTree::Ident(mut ident) => {
+                            let fragment = ident.to_string();
+                            if fragment.starts_with("r#") {
+                                ident = Ident::new(&fragment[2..], ident.span());
+                            }
+                            pieces.push(TokenTree::Ident(ident));
+                        }
+                        TokenTree::Literal(_) => {
                             pieces.push(tt);
                         }
                         TokenTree::Punct(tt) => match tt.as_char() {

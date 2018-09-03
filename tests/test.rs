@@ -157,3 +157,29 @@ fn test_attributes() {
     struct Aa;
     let _: m!("T");
 }
+
+#[test]
+fn test_keyword() {
+    mashup! {
+        m["x"] = F move;
+    }
+
+    m! {
+        struct "x";
+    }
+
+    let _ = Fmove;
+}
+
+#[test]
+fn test_raw_identifier() {
+    mashup! {
+        m["x"] = F r#move;
+    }
+
+    m! {
+        struct "x";
+    }
+
+    let _ = Fmove;
+}
