@@ -38,8 +38,8 @@ impl Concat {
     fn mashup(&self) -> String {
         self.pieces
             .iter()
-            .map(|tt| match tt {
-                TokenTree::Literal(lit) => identify(lit),
+            .map(|tt| match *tt {
+                TokenTree::Literal(ref lit) => identify(lit),
                 _ => tt.to_string(),
             }).collect()
     }
@@ -96,7 +96,7 @@ fn parse(tts: TokenStream) -> Input {
                             }
                             if fragment == "env" {
                                 let resolve_env = match tts.peek() {
-                                    Some(TokenTree::Punct(ref p)) => p.as_char() == '!',
+                                    Some(&TokenTree::Punct(ref p)) => p.as_char() == '!',
                                     _ => false,
                                 };
                                 if resolve_env {
