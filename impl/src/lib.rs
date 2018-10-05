@@ -50,7 +50,7 @@ impl Concat {
 fn identify(lit: &Literal) -> String {
     let stringified = lit.to_string();
     match stringified.chars().next() {
-        Some(ch) if ch == '"' || ch == '\'' => stringified.trim_matches(ch).into(),
+        Some(ch) if ch == '"' || ch == '\'' => stringified.trim_matches(ch).replace('-', "_"),
         _ => stringified,
     }
 }
