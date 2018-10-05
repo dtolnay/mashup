@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/mashup-impl/0.1.7")]
+#![doc(html_root_url = "https://docs.rs/mashup-impl/0.1.8")]
 
 #[macro_use]
 extern crate proc_macro_hack;
