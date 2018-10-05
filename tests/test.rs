@@ -159,6 +159,45 @@ fn test_keyword() {
     let _ = Fmove;
 }
 
+#[test]
+fn test_literal_str() {
+    mashup! {
+        m["x"] = Foo "Bar";
+    }
+
+    m! {
+        struct "x";
+    }
+
+    let _ = FooBar;
+}
+
+#[test]
+fn test_env_literal() {
+    mashup! {
+        m["x"] = Lib env bar;
+    }
+
+    m! {
+        struct "x";
+    }
+
+    let _ = Libenvbar;
+}
+
+#[test]
+fn test_env_present() {
+    mashup! {
+        m["x"] = Lib env!("CARGO_PKG_NAME");
+    }
+
+    m! {
+        struct "x";
+    }
+
+    let _ = Libmashup;
+}
+
 macro_rules! conditionally_ignore {
     {
         #[cfg(not($cfg:ident))]

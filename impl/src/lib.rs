@@ -4,7 +4,7 @@
 extern crate proc_macro_hack;
 
 extern crate proc_macro2;
-use proc_macro2::{Delimiter, Ident, TokenStream, TokenTree};
+use proc_macro2::{Delimiter, Ident, Literal, TokenStream, TokenTree};
 
 use std::collections::BTreeMap as Map;
 use std::str::FromStr;
@@ -36,12 +36,27 @@ struct Concat {
 
 impl Concat {
     fn mashup(&self) -> String {
-        self.pieces.iter().map(ToString::to_string).collect()
+        self.pieces
+            .iter()
+            .map(|tt| match tt {
+                TokenTree::Literal(lit) => identify(lit),
+                _ => tt.to_string(),
+            }).collect()
+    }
+}
+
+/// Returns a `to_string()` impl for `Literals`
+/// which is safe for use in idents
+fn identify(lit: &Literal) -> String {
+    let stringified = lit.to_string();
+    match stringified.chars().next() {
+        Some(ch) if ch == '"' || ch == '\'' => stringified.trim_matches(ch).into(),
+        _ => stringified,
     }
 }
 
 fn parse(tts: TokenStream) -> Input {
-    let mut tts = tts.into_iter();
+    let mut tts = tts.into_iter().peekable();
     let mut map = Map::new();
     let mut attrs = Vec::new();
 
@@ -78,6 +93,37 @@ fn parse(tts: TokenStream) -> Input {
                             let fragment = ident.to_string();
                             if fragment.starts_with("r#") {
                                 ident = Ident::new(&fragment[2..], ident.span());
+                            }
+                            if fragment == "env" {
+                                let resolve_env = match tts.peek() {
+                                    Some(TokenTree::Punct(ref p)) => p.as_char() == '!',
+                                    _ => false,
+                                };
+                                if resolve_env {
+                                    match tts.next().and_then(|_| tts.next()) {
+                                        Some(TokenTree::Group(ref grp))
+                                            if grp.delimiter() == Delimiter::Parenthesis =>
+                                        {
+                                            match grp.stream().into_iter().next() {
+                                                Some(TokenTree::Literal(ref varname)) => {
+                                                    let resolved = std::env::var(identify(varname))
+                                                        .unwrap_or_else(|_| {
+                                                            panic!(
+                                                                "unresolvable mashup env var {}",
+                                                                varname
+                                                            )
+                                                        });
+                                                    pieces.push(TokenTree::Literal(
+                                                        Literal::string(&resolved),
+                                                    ));
+                                                    continue;
+                                                }
+                                                _ => panic!("unexpected mashup input"),
+                                            }
+                                        }
+                                        _ => panic!("unexpected mashup input"),
+                                    }
+                                }
                             }
                             pieces.push(TokenTree::Ident(ident));
                         }
