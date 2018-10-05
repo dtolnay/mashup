@@ -162,14 +162,14 @@ fn test_keyword() {
 #[test]
 fn test_literal_str() {
     mashup! {
-        m["x"] = Foo "Bar";
+        m["x"] = Foo "Bar-Baz";
     }
 
     m! {
         struct "x";
     }
 
-    let _ = FooBar;
+    let _ = FooBar_Baz;
 }
 
 #[test]
