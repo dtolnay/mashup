@@ -175,14 +175,14 @@ fn test_literal_str() {
 #[test]
 fn test_env_literal() {
     mashup! {
-        m["x"] = Lib env;
+        m["x"] = Lib env bar;
     }
 
     m! {
         struct "x";
     }
 
-    let _ = Libenv;
+    let _ = Libenvbar;
 }
 
 #[test]
