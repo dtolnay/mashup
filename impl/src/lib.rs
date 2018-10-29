@@ -3,8 +3,8 @@
 #[macro_use]
 extern crate proc_macro_hack;
 
-extern crate proc_macro2;
-use proc_macro2::{Delimiter, Ident, Literal, TokenStream, TokenTree};
+extern crate proc_macro;
+use proc_macro::{Delimiter, Ident, Literal, TokenStream, TokenTree};
 
 use std::collections::BTreeMap as Map;
 use std::str::FromStr;
