@@ -55,6 +55,7 @@ fn identify(lit: &Literal) -> String {
     }
 }
 
+// expects a single line of syntax tokens in the form {name}[{tag}] = {pieces...};
 fn parse(tts: TokenStream) -> Input {
     let mut tts = tts.into_iter().peekable();
     let mut map = Map::new();
