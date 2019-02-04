@@ -18,7 +18,10 @@ This crate provides a more flexible spin on concatenating idents.
 mashup = "0.1"
 ```
 
-Mashup works with any Rust compiler version >= 1.15.0.
+Mashup works with any Rust compiler version 1.15+. If you are targeting 1.30+,
+you may want the [`paste`] crate instead which has an easier interface.
+
+[`paste`]: https://github.com/dtolnay/paste
 
 ## So tell me about concatenating idents
 
