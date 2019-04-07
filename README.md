@@ -5,6 +5,13 @@ Mashup: a working stable concat\_idents
 [![Latest Version](https://img.shields.io/crates/v/mashup.svg)](https://crates.io/crates/mashup)
 [![Rust Documentation](https://img.shields.io/badge/api-rustdoc-blue.svg)](https://docs.rs/mashup)
 
+***Note: if you are targeting 1.30+, you may want the [`paste`] crate instead
+which has an easier interface.***
+
+[`paste`]: https://github.com/dtolnay/paste
+
+<br>
+
 The nightly-only [`concat_idents!`] macro in the Rust standard library is
 notoriously underpowered in that its concatenated identifiers can only refer to
 existing items, they can never be used to define something new.
@@ -18,10 +25,7 @@ This crate provides a more flexible spin on concatenating idents.
 mashup = "0.1"
 ```
 
-Mashup works with any Rust compiler version 1.15+. If you are targeting 1.30+,
-you may want the [`paste`] crate instead which has an easier interface.
-
-[`paste`]: https://github.com/dtolnay/paste
+Mashup works with any Rust compiler version 1.15+.
 
 ## So tell me about concatenating idents
 
