@@ -20,7 +20,7 @@
 //! and mashup defines for you a substitution macro that substitutes your key tokens
 //! with the single concatenated ident corresponding to each one.
 //!
-//! ```rust
+//! ```
 //! #[macro_use]
 //! extern crate mashup;
 //!
@@ -74,7 +74,7 @@
 //! - Substitution macros work equally well in item position and expression
 //!   position.
 //!
-//! ```rust
+//! ```
 //! #[macro_use]
 //! extern crate mashup;
 //!
@@ -106,7 +106,7 @@
 //! Attributes for the substitution macro, including doc comments, may be provided
 //! inside of the mashup invocation.
 //!
-//! ```rust
+//! ```
 //! # #[macro_use]
 //! # extern crate mashup;
 //! #
