@@ -7,9 +7,6 @@ description = "Concatenate identifiers in a macro invocation"
 repository = "https://github.com/dtolnay/mashup"
 readme = "README.md"
 
-[badges]
-travis-ci = { repository = "dtolnay/mashup" }
-
 [dependencies]
 proc-macro-hack = "0.4"
 mashup-impl = { version = "0.1.9", path = "impl" }

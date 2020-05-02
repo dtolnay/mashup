@@ -14,8 +14,5 @@ proc-macro = true
 proc-macro-hack = "0.4"
 proc-macro2 = "0.4"
 
-[badges]
-travis-ci = { repository = "dtolnay/mashup" }
-
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
