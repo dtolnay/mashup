@@ -1,7 +1,7 @@
 Mashup: a working stable concat\_idents
 =======================================
 
-[![Build Status](https://api.travis-ci.org/dtolnay/mashup.svg?branch=master)](https://travis-ci.org/dtolnay/mashup)
+[![Build Status](https://img.shields.io/github/workflow/status/dtolnay/mashup/CI/master)](https://github.com/dtolnay/mashup/actions?query=branch%3Amaster)
 [![Latest Version](https://img.shields.io/crates/v/mashup.svg)](https://crates.io/crates/mashup)
 [![Rust Documentation](https://img.shields.io/badge/api-rustdoc-blue.svg)](https://docs.rs/mashup)
 
