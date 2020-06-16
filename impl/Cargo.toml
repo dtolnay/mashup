@@ -5,6 +5,7 @@ authors = ["David Tolnay <dtolnay@gmail.com>"]
 license = "MIT OR Apache-2.0"
 description = "Concatenate identifiers in a macro invocation"
 repository = "https://github.com/dtolnay/mashup"
+documentation = "https://docs.rs/mashup"
 readme = "README.md"
 
 [lib]
