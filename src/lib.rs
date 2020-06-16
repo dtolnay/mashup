@@ -146,7 +146,7 @@
 //! [#5]: https://github.com/dtolnay/mashup/issues/5
 //! [#6]: https://github.com/dtolnay/mashup/issues/6
 
-#![doc(html_root_url = "https://docs.rs/mashup/0.1.10")]
+#![doc(html_root_url = "https://docs.rs/mashup/0.1.11")]
 #![no_std]
 
 #[macro_use]
