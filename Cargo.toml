@@ -9,7 +9,7 @@ readme = "README.md"
 
 [dependencies]
 proc-macro-hack = "0.4"
-mashup-impl = { version = "0.1.10", path = "impl" }
+mashup-impl = { version = "=0.1.10", path = "impl" }
 
 [workspace]
 members = ["impl"]
