@@ -6,12 +6,12 @@ Mashup: a working stable concat\_idents
 [<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-mashup-66c2a5?style=for-the-badge&labelColor=555555&logoColor=white&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxwYXRoIGZpbGw9IiNmNWY1ZjUiIGQ9Ik00ODguNiAyNTAuMkwzOTIgMjE0VjEwNS41YzAtMTUtOS4zLTI4LjQtMjMuNC0zMy43bC0xMDAtMzcuNWMtOC4xLTMuMS0xNy4xLTMuMS0yNS4zIDBsLTEwMCAzNy41Yy0xNC4xIDUuMy0yMy40IDE4LjctMjMuNCAzMy43VjIxNGwtOTYuNiAzNi4yQzkuMyAyNTUuNSAwIDI2OC45IDAgMjgzLjlWMzk0YzAgMTMuNiA3LjcgMjYuMSAxOS45IDMyLjJsMTAwIDUwYzEwLjEgNS4xIDIyLjEgNS4xIDMyLjIgMGwxMDMuOS01MiAxMDMuOSA1MmMxMC4xIDUuMSAyMi4xIDUuMSAzMi4yIDBsMTAwLTUwYzEyLjItNi4xIDE5LjktMTguNiAxOS45LTMyLjJWMjgzLjljMC0xNS05LjMtMjguNC0yMy40LTMzLjd6TTM1OCAyMTQuOGwtODUgMzEuOXYtNjguMmw4NS0zN3Y3My4zek0xNTQgMTA0LjFsMTAyLTM4LjIgMTAyIDM4LjJ2LjZsLTEwMiA0MS40LTEwMi00MS40di0uNnptODQgMjkxLjFsLTg1IDQyLjV2LTc5LjFsODUtMzguOHY3NS40em0wLTExMmwtMTAyIDQxLjQtMTAyLTQxLjR2LS42bDEwMi0zOC4yIDEwMiAzOC4ydi42em0yNDAgMTEybC04NSA0Mi41di03OS4xbDg1LTM4Ljh2NzUuNHptMC0xMTJsLTEwMiA0MS40LTEwMi00MS40di0uNmwxMDItMzguMiAxMDIgMzguMnYuNnoiPjwvcGF0aD48L3N2Zz4K" height="20">](https://docs.rs/mashup)
 [<img alt="build status" src="https://img.shields.io/github/workflow/status/dtolnay/mashup/CI/master?style=for-the-badge" height="20">](https://github.com/dtolnay/mashup/actions?query=branch%3Amaster)
 
-***Note: if you are targeting 1.31+, you may want the [`paste`] crate instead
-which has an easier interface.***
-
-[`paste`]: https://github.com/dtolnay/paste
-
-<br>
+<table><tr><td><hr>
+<b>Note:</b> <i>If you are targeting Rust 1.31+, please use the <a
+href="https://github.com/dtolnay/paste"><code>paste</code></a> crate instead
+which has an easier interface. Only consider using this one if you care about
+supporting compilers between 1.15 and 1.31.</i>
+<hr></td></tr></table>
 
 The nightly-only [`concat_idents!`] macro in the Rust standard library is
 notoriously underpowered in that its concatenated identifiers can only refer to
