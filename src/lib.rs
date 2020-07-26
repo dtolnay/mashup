@@ -6,6 +6,13 @@
 //!
 //! <br>
 //!
+//! <table><tr><td><hr>
+//! <b>Note:</b> <i>If you are targeting Rust 1.31+, please use the <a
+//! href="https://github.com/dtolnay/paste"><code>paste</code></a> crate instead
+//! which has an easier interface. Only consider using this one if you care
+//! about supporting compilers between 1.15 and 1.31.</i>
+//! <hr></td></tr></table>
+//!
 //! The nightly-only [`concat_idents!`] macro in the Rust standard library is
 //! notoriously underpowered in that its concatenated identifiers can only refer to
 //! existing items, they can never be used to define something new.
