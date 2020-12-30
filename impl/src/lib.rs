@@ -135,7 +135,7 @@ fn parse(tts: TokenStream) -> Input {
                             ';' => break,
                             other => panic!("unexpected op {:?}", other),
                         },
-                        _ => panic!("unexpected mashup input"),
+                        TokenTree::Group(_) => panic!("unexpected mashup input"),
                     }
                 }
 
