@@ -1,4 +1,6 @@
 #![doc(html_root_url = "https://docs.rs/mashup-impl/0.1.12")]
+#![cfg_attr(feature = "cargo-clippy", allow(renamed_and_removed_lints))]
+#![cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))]
 
 #[macro_use]
 extern crate proc_macro_hack;
