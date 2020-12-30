@@ -39,3 +39,11 @@ jobs:
       - run: cargo test --test test
         env:
           RUSTFLAGS: --cfg no_attributes --cfg no_raw_identifiers
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dtolnay/rust-toolchain@clippy
+      - run: cargo clippy -- -Dclippy::all
