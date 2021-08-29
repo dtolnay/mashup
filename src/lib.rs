@@ -155,6 +155,7 @@
 
 #![doc(html_root_url = "https://docs.rs/mashup/0.1.13+deprecated")]
 #![no_std]
+#![allow(clippy::doc_markdown)]
 
 #[macro_use]
 extern crate proc_macro_hack;
