@@ -155,7 +155,8 @@
 
 #![doc(html_root_url = "https://docs.rs/mashup/0.1.13+deprecated")]
 #![no_std]
-#![allow(clippy::doc_markdown)]
+#![cfg_attr(feature = "cargo-clippy", allow(renamed_and_removed_lints))]
+#![cfg_attr(feature = "cargo-clippy", allow(doc_markdown))]
 
 #[macro_use]
 extern crate proc_macro_hack;
