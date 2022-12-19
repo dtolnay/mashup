@@ -15,6 +15,7 @@ jobs:
   nightly:
     name: Rust nightly
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@nightly
@@ -27,6 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         rust: [beta, stable, 1.20.0]
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@master
@@ -39,6 +41,7 @@ jobs:
   msrv:
     name: Rust 1.15.0
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@1.15.0
@@ -49,6 +52,7 @@ jobs:
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@clippy
