@@ -1,5 +1,6 @@
 #![doc(html_root_url = "https://docs.rs/mashup-impl/0.1.13+deprecated")]
 #![cfg_attr(feature = "cargo-clippy", allow(renamed_and_removed_lints))]
+#![cfg_attr(feature = "cargo-clippy", allow(needless_borrowed_reference))]
 #![cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))]
 
 #[macro_use]
