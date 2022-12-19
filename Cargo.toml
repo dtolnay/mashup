@@ -1,6 +1,6 @@
 [package]
 name = "mashup"
-version = "0.1.13+deprecated" # remember to update html_root_url
+version = "0.1.14+deprecated" # remember to update html_root_url
 authors = ["David Tolnay <dtolnay@gmail.com>"]
 description = "Concatenate identifiers in a macro invocation"
 documentation = "https://docs.rs/mashup"
@@ -9,7 +9,7 @@ repository = "https://github.com/dtolnay/mashup"
 
 [dependencies]
 proc-macro-hack = "0.4"
-mashup-impl = { version = "=0.1.13", path = "impl" }
+mashup-impl = { version = "=0.1.14", path = "impl" }
 
 [workspace]
 members = ["impl"]

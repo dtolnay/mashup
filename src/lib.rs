@@ -153,7 +153,7 @@
 //! [#5]: https://github.com/dtolnay/mashup/issues/5
 //! [#6]: https://github.com/dtolnay/mashup/issues/6
 
-#![doc(html_root_url = "https://docs.rs/mashup/0.1.13+deprecated")]
+#![doc(html_root_url = "https://docs.rs/mashup/0.1.14+deprecated")]
 #![no_std]
 #![cfg_attr(feature = "cargo-clippy", allow(renamed_and_removed_lints))]
 #![cfg_attr(feature = "cargo-clippy", allow(doc_markdown))]
