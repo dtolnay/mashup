@@ -2,11 +2,11 @@
 name = "mashup"
 version = "0.1.13+deprecated" # remember to update html_root_url
 authors = ["David Tolnay <dtolnay@gmail.com>"]
-license = "MIT OR Apache-2.0"
 description = "Concatenate identifiers in a macro invocation"
-repository = "https://github.com/dtolnay/mashup"
 documentation = "https://docs.rs/mashup"
+license = "MIT OR Apache-2.0"
 readme = "README.md"
+repository = "https://github.com/dtolnay/mashup"
 
 [dependencies]
 proc-macro-hack = "0.4"
