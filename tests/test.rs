@@ -160,6 +160,7 @@ fn test_keyword() {
 }
 
 #[test]
+#[allow(non_camel_case_types)]
 fn test_literal_str() {
     mashup! {
         m["x"] = Foo "Bar-Baz";
